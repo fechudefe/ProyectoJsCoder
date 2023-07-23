@@ -1,61 +1,68 @@
-let sumaTotal = 0;
-let opcion;
-let formaPago;
-const formaDePago = (debito, total) => {
-	if (debito) {
-		return total * 0.9;
-	} else {
-		return total;
-	}
-};
+const carrito = [];
 
-alert("Bienvenido a la tienda xxxx");
-console.log("Item 1 $1000");
-console.log("Item 2 $1500");
-console.log("Item 3 $1200");
-console.log("Item 4 $5000");
-console.log("Item 5 $15000");
-console.log("Item 6 $2550");
-do {
-	opcion = prompt(
-		"Ingrese el numero del item que quiere añador al carrito, si quiere salir, ingrese 0"
-	);
-	while (opcion < 0 || opcion > 6) {
-		opcion = prompt(
-			"Ingreso un valor invalido, por favor ingrese un valor entre el numero de items y 0"
+function aplicarDescuento(debito){
+	if(debito == "debito"){
+		return calcularTotalCarrito()*0.9;	
+	}else{
+		return calcularTotalCarrito();
+	}
+}
+
+function calcularTotalCarrito(){
+	return carrito.reduce((acumulador,producto) => acumulador + producto.precio,0);
+}
+
+function filtrarPorStrock(){
+
+	return productos.filter((producto) => producto.stock > 0);
+
+}
+
+function productoEsta(id){
+
+	return productosConStock.some((producto) => producto.id == id);
+}
+
+function mostrarListaProductos(lista) {
+	for (const producto of lista) {
+		console.log(
+			`Codigo: ${producto.id} Nombre: ${producto.nombre}, Valor : $${producto.precio}, Cantidad disponible: ${producto.stock}`
 		);
 	}
+}
+const productosConStock = filtrarPorStrock(productos);
 
-	switch (opcion) {
-		case "1":
-			sumaTotal = sumaTotal + 1000;
-			break;
-		case "2":
-			sumaTotal = sumaTotal + 1500;
-			break;
-		case "3":
-			sumaTotal = sumaTotal + 1200;
-			break;
-		case "4":
-			sumaTotal = sumaTotal + 5000;
-			break;
-		case "5":
-			sumaTotal = sumaTotal + 15000;
-			break;
-		case "6":
-			sumaTotal = sumaTotal + 2550;
-			break;
+mostrarListaProductos(productosConStock);
 
-		default:
+
+
+
+let productoElegido = parseFloat(prompt("Ingrese el id del producto deseado para añadir al carrito, cuando no desee añadir mas productos ingrese 0"));
+do {
+	
+	if(isNaN(productoElegido) || (productoElegido <0) ){
+		productoElegido = parseFloat(prompt("El id del producto que eligio es invalido, por favor ingrese un numero de id valido"))
+	}else if(productoEsta(productoElegido)){
+		carrito.push(productosConStock.find((producto)=> producto.id == productoElegido));
+		productoElegido = parseFloat(prompt("Ingrese el id del producto deseado para añadir al carrito, cuando no desee añadir mas productos ingrese 0"));		
+	}else{
+		if(productoElegido == 0){
 			break;
+		}
+		productoElegido = parseFloat(prompt("El id seleccionado no pertenece a una objeto valido"));
 	}
-} while (opcion != "0");
 
-console.log("El total del carrito es:$" + sumaTotal);
+} while (productoElegido != 0);
 
-formaPago = prompt(
-	"Ingrese debito si abonara con debito o credito si abonara con credito, recuerde que si abona con debito tiene un 10% de descuento en el total de la compra "
-);
 
-let pago = formaPago == "debito";
-console.log("El total a pagar es:$" + formaDePago(pago, sumaTotal));
+if(carrito.length >0){
+	console.table(carrito);
+let formaPago = prompt("Ingrese debito o credito como forma de pago, recordar que con debito tenes un 10% de descuento");
+console.log(aplicarDescuento(formaPago.toLocaleLowerCase()));
+}else{
+	console.log("No añado ningun producto al carrito");
+}
+
+
+
+

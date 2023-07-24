@@ -58,7 +58,7 @@ do {
 if(carrito.length >0){
 	console.table(carrito);
 let formaPago = prompt("Ingrese debito o credito como forma de pago, recordar que con debito tenes un 10% de descuento");
-console.log(aplicarDescuento(formaPago.toLocaleLowerCase()));
+console.log("El total de su carrito es: "+ aplicarDescuento(formaPago.toLocaleLowerCase()));
 }else{
 	console.log("No añado ningun producto al carrito");
 }

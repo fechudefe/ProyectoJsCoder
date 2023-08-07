@@ -1,68 +1,55 @@
 const carrito = [];
 
-function aplicarDescuento(debito){
-	if(debito == "debito"){
-		return calcularTotalCarrito()*0.9;	
-	}else{
-		return calcularTotalCarrito();
-	}
+const listaProductos = JSON.parse(localStorage.getItem("Lista de productos"));
+console.log(listaProductos);
+
+function totalCarrito() {
+  return carrito.reduce(
+    (acumulador, carritoPrecio) => acumulador + carritoPrecio.precio,
+    0
+  );
 }
 
-function calcularTotalCarrito(){
-	return carrito.reduce((acumulador,producto) => acumulador + producto.precio,0);
+function mostrarCartas(contenedorMostrarCartas) {
+  for (const producto of listaProductos) {
+    contenedorMostrarCartas.innerHTML += `<div class="card"">
+	<img class="card-img-top" src=${producto.img}  alt="Card image cap">
+	<div class="card-body">
+	  <h5 class="card-title">${producto.nombre}</h5>
+	  <p class="card-text">$${producto.precio}</p>
+	  <button id=${producto.id} class="btn btn-primary boton-compra">Añadir al carrito</button>
+	</div>
+	</div>`;
+  }
 }
 
-function filtrarPorStrock(){
-
-	return productos.filter((producto) => producto.stock > 0);
-
+function agregarProducto() {
+  listaProductos.forEach((producto) => {
+    document.getElementById(`${producto.id}`).addEventListener("click", () => {
+      carrito.push(producto);
+      document.getElementById("cuerpo-tabla").innerHTML = "";
+      for (const producto of carrito) {
+        document.getElementById("cuerpo-tabla").innerHTML += `
+	  <tr>
+			  <th>${producto.nombre}</th>
+			  <th>${producto.precio}</th>
+	  </tr> 
+	  `;
+      }
+    });
+  });
 }
 
-function productoEsta(id){
+document.getElementById("limpiar-carrito").addEventListener("click", () => {
+  carrito.length = 0;
+  document.getElementById("cuerpo-tabla").innerHTML = "";
+  document.getElementById("mostrar-total").innerText = "";
 
-	return productosConStock.some((producto) => producto.id == id);
-}
+});
 
-function mostrarListaProductos(lista) {
-	for (const producto of lista) {
-		console.log(
-			`Codigo: ${producto.id} Nombre: ${producto.nombre}, Valor : $${producto.precio}, Cantidad disponible: ${producto.stock}`
-		);
-	}
-}
-const productosConStock = filtrarPorStrock(productos);
-
-mostrarListaProductos(productosConStock);
-
-
-
-
-let productoElegido = parseFloat(prompt("Ingrese el id del producto deseado para añadir al carrito, cuando no desee añadir mas productos ingrese 0"));
-do {
-	
-	if(isNaN(productoElegido) || (productoElegido <0) ){
-		productoElegido = parseFloat(prompt("El id del producto que eligio es invalido, por favor ingrese un numero de id valido"))
-	}else if(productoEsta(productoElegido)){
-		carrito.push(productosConStock.find((producto)=> producto.id == productoElegido));
-		productoElegido = parseFloat(prompt("Ingrese el id del producto deseado para añadir al carrito, cuando no desee añadir mas productos ingrese 0"));		
-	}else{
-		if(productoElegido == 0){
-			break;
-		}
-		productoElegido = parseFloat(prompt("El id seleccionado no pertenece a una objeto valido"));
-	}
-
-} while (productoElegido != 0);
-
-
-if(carrito.length >0){
-	console.table(carrito);
-let formaPago = prompt("Ingrese debito o credito como forma de pago, recordar que con debito tenes un 10% de descuento");
-console.log("El total de su carrito es: "+ aplicarDescuento(formaPago.toLocaleLowerCase()));
-}else{
-	console.log("No añado ningun producto al carrito");
-}
-
-
-
-
+mostrarCartas(document.getElementById("contenedor"));
+agregarProducto();
+document.getElementById("total-carrito").addEventListener("click", ()=>{
+  carrito.length == 0 ?  document.getElementById("mostrar-total").innerText = "Tu carrito esta vacio!" : document.getElementById("mostrar-total").innerText = `El total de tu carrito es: ${totalCarrito()}`
+  
+})

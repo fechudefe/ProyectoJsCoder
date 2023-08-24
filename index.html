@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,11 +15,9 @@
   </head>
   <body>
     <h1>Bienvenido!!</h1>
+    
     <section id="contenedor"></section>
-
-    <button class="btn btn-dark" id="limpiar-carrito">Limpiar Carrito</button>
-    <button id="total-carrito" class="btn btn-dark">Ver total de carrito</button>
-    <h2 id="mostrar-total"></h2>
+    
 
     <section id="contenedor-carrito">
       <table class="table">
@@ -26,16 +25,25 @@
           <tr>
             <th>Nombre Producto</th>
             <th>Precio por Unidad</th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="cuerpo-tabla"></tbody>
       </table>
     </section>
+
+    <button class="btn btn-dark" id="limpiar-carrito">Limpiar Carrito</button>
+    <button id="total-carrito" class="btn btn-dark">Ver total de carrito</button>
+    <h2 id="mostrar-total"></h2>
+
+    
+
+
     
     
 
     
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

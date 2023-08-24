@@ -1,0 +1,10 @@
+[
+    {"id": 1 , "nombre" :  "Gomitas", "img": "./img/mogul-acidas.jpg" , "stock" :  10,"precio":  250},
+    {"id": 2 , "nombre" :  "Alfajor Jorgito", "img": "./img/alfajor-jorgito.jpg" , "stock" :  10,"precio":  250},
+    {"id": 3 , "nombre" :  "Cerveza", "img": "./img/imperial-golde.jpg" , "stock" :  10,"precio":  250},
+    {"id": 4 , "nombre" :  "Sprite", "img": "./img/sprite.jpg" , "stock" :  10,"precio":  250},
+    {"id": 5 , "nombre" :  "Alfajor Block", "img": "./img/alfajor-block.jpg" , "stock" :  10,"precio":  250},
+    {"id": 6 , "nombre" :  "Pack Imperial Ipa", "img": "./img/pack-imperial-ipa.jpg" , "stock" :  10,"precio":  250},
+    {"id": 7 , "nombre" :  "Mogul Acidas Tira", "img": "./img/mogul-acidas-tira.jpg" , "stock" :  10,"precio":  250},
+    {"id": 8 , "nombre" :  "Kinder Sorpresa", "img": "./img/kinder-sorpresa.png" , "stock" :  10,"precio":  250}
+]
